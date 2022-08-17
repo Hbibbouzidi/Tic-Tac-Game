@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<head>
+	<meta name="viewport" content=
+		"width=device-width, initial-scale=1.0">
+    <title>Tic Tac Game</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+	<div id="main">
+		<h1>TicTac</h1>
+
+		<!-- Game Instructions -->
+		<p id="ins">Game starts by just Tap on box<br><br>
+            First Player starts as<b>Player X</b>
+            <br>Second Player as <b>Player 0</b>
+		</p>
+
+		<br><br>
+		<!-- 3*3 grid of Boxes -->
+		<input type="text" id="0-0" onclick="play(event)" readonly>
+		<input type="text" id="0-1" onclick="play(event)" readonly>
+		<input type="text" id="0-2" onclick="play(event)" readonly>
+		<br><br>
+
+		<input type="text" id="1-0" onclick="play(event)" readonly>
+		<input type="text" id="1-1" onclick="play(event)" readonly>
+		<input type="text" id="1-2" onclick="play(event)" readonly>
+		<br><br>
+
+		<input type="text" id="2-0" onclick="play(event)" readonly>
+		<input type="text" id="2-1" onclick="play(event)" readonly>
+		<input type="text" id="2-2" onclick="play(event)" readonly>
+
+		<!-- Grid end here -->
+		<br><br><br>
+		<!-- Button to reset game -->
+		<button id="but" onclick="newGame()">Reset</button>
+
+		<br><br>
+		<!-- Space to show player turn -->
+		<p id="print"></p>
+
+	</div>
+
+    <script>
+        let board = [3,3];
+        let player ="x";
+        let nbPlay=0;
+
+        function newGame(){
+            
+            for(let i=0;i<3;i++){
+                for(let j=0;j<3;j++){
+                    board[i,j]="";
+                    //console.log(i+"-"+j)
+                    document.getElementById(i+"-"+j).value="";
+                }
+            }
+            
+            player="x";
+            nbPlay=0;
+        }
+
+        newGame();
+
+        function play(e){
+            let cell = e.target.id.split("-");
+            let i = parseInt(cell[0]);
+            let j = parseInt(cell[1]);
+            //console.log(i+"+"+j)
+
+            if(document.getElementById(i+"-"+j).value==""){
+                if(player=="x"){
+                    board[i,j]="x";
+                    document.getElementById(i+"-"+j).value="x";
+                    nbPlay++;
+                    checkWinner();
+                    player="o";
+                    
+                }else{
+                    board[i,j]="o";
+                    document.getElementById(i+"-"+j).value="o";
+                    nbPlay++;
+                    checkWinner();
+                    player="x";
+                    
+                }
+                
+            }
+        }
+
+        function checkWinner(){
+            let winner="draw";
+
+            
+            if(board[0,0]==board[0,1] && board[0,0]==board[0,2] && board[0,0]!=""){
+                alert("the winner is : player_"+player+"\nClick to start a new round");
+                newGame();
+            }
+            if(board[1,0]==board[1,1] && board[1,0]==board[1,2] && board[1,0]!=""){
+                alert("the winner is : player_"+player+" Click to start a new round");
+                newGame();
+            }
+            if(board[2,0]==board[2,1] && board[2,0]==board[2,2] && board[2,0]!=""){
+                alert("the winner is : player_"+player+" Click to start a new round");
+                newGame();
+            }
+            if(board[0,0]==board[1,0] && board[0,0]==board[2,0] && board[0,0]!=""){
+                alert("the winner is : player_"+player+" Click to start a new round");
+                newGame();
+            }
+            if(board[0,1]==board[1,1] && board[0,1]==board[1,2] && board[0,1]!=""){
+                alert("the winner is : player_"+player+" Click to start a new round");
+                newGame();
+            }
+            if(board[0,2]==board[1,2] && board[0,2]==board[2,2] && board[0,2]!=""){
+                alert("the winner is : player_"+player+" Click to start a new round");
+                newGame();
+            }
+            if(board[0,0]==board[1,1] && board[0,0]==board[2,2] && board[0,0]!=""){
+                alert("the winner is : player_"+player+" Click to start a new round");
+                newGame();
+            }
+            if(board[0,2]==board[1,1] && board[0,2]==board[2,0] && board[0,2]!=""){
+                alert("the winner is : player_"+player+" Click to start a new round");
+                newGame();
+            }
+            
+            if(nbPlay == 9 && winner=="draw"){
+                alert("Draw Game!! Click to start a new round");
+                newGame();
+            }
+        }
+    </script>
+</body>
+</html>
